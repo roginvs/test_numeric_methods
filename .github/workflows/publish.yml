@@ -25,14 +25,14 @@ jobs:
           echo "${SSH_DEPLOY_KEY}" > "${HOME}/.ssh/id_rsa"
           chmod 400 "${HOME}/.ssh/id_rsa"
           cd public
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           export remote_repo="git@github.com:${PUBLISH_REPOSITORY}.git"
           git init
           git checkout --orphan gh-pages
           git remote rm origin || true
           git remote add origin "${remote_repo}"
           git add --all
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git commit --allow-empty -m'Github pages'
           git remote -v
           git push -f --set-upstream origin gh-pages
