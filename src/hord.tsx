@@ -95,7 +95,6 @@ function calculate(p: HordParams): string {
 
   let x = p.useAasStart ? a : b;
 
-  let aSwapped = p.useAasStart ? a : b;
   let bSwapped = p.useAasStart ? b : a;
 
   addMsg(`Начинаем a=${a} b=${b} x=${x}`);
