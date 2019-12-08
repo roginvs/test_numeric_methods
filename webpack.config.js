@@ -100,6 +100,10 @@ const config = (env, argv) => {
     module: {
       rules: [
         {
+          test: /\.css$/i,
+          use: ["style-loader", "css-loader"],
+        },
+        {
           test: /\.tsx?$/,
           exclude: /node_modules/,
           use: [
@@ -149,17 +153,6 @@ const config = (env, argv) => {
             },
           ],
         },
-        /*
-        // Uncomment this lines if you really need file-loader
-        {
-          test: /\.(png|jpg|gif)$/,
-          use: ["file-loader?name=img/[hash].[ext]"],
-        },
-        {
-          test: /\.(woff|woff2|eot|ttf|otf)$/,
-          use: ["file-loader?name=fonts/[hash].[ext]"],
-        },
-        */
       ],
     },
     resolve: {
