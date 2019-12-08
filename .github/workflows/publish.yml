@@ -33,4 +33,4 @@ jobs:
           git remote rm origin || true
           git remote add origin "${remote_repo}"
           git add --all
-          git push origin -f
+          git push -f --set-upstream origin gh-pages
