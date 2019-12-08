@@ -63,11 +63,89 @@ function calculate(matrixRaw: string) {
     }
   }
 
-  addMsg(`Исходная матрица:`);
-  for (const line of m) {
-    addMsg(line.map(v => format(v)).join(" "));
+  const mReverse: typeof m = [];
+  for (let i = 0; i < m.length; i++) {
+    const line: number[] = [];
+    for (let ii = 0; ii < m[i].length - 1; ii++) {
+      line.push(i === ii ? 1 : 0);
+    }
+    mReverse.push(line);
   }
 
+  let determinantMultiplication = 1;
+
+  const EPSILON = 0.00001;
+  addMsg("");
+
+  function dumpState() {
+    for (let i = 0; i < m.length; i++) {
+      addMsg(
+        m[i].map(v => format(v)).join(" ") + "        " + mReverse[i].map(v => format(v)).join(" "),
+      );
+    }
+    addMsg(`    Множитель определителя ${format(determinantMultiplication)}`);
+    addMsg("");
+  }
+  addMsg(`Исходные данные:`);
+  dumpState();
+
+  for (let lineNumber = 0; lineNumber < rowsCount - 1; lineNumber++) {
+    addMsg(`Прямой ход на строке ${lineNumber}`);
+    const targetColumn = lineNumber;
+    let nonZeroLineNumber = -1;
+    for (
+      let nonZeroLineNumberCandidate = lineNumber;
+      nonZeroLineNumberCandidate < rowsCount;
+      nonZeroLineNumberCandidate++
+    ) {
+      if (Math.abs(m[nonZeroLineNumberCandidate][targetColumn]) > EPSILON) {
+        nonZeroLineNumber = nonZeroLineNumberCandidate;
+        break;
+      }
+    }
+    if (nonZeroLineNumber === -1) {
+      addMsg(`Вырожденная матрица: Нет ненулевого элемента в столбце ${targetColumn}`);
+      return msg;
+    }
+    if (nonZeroLineNumber !== lineNumber) {
+      addMsg(`Меняем местами строки ${lineNumber} и ${nonZeroLineNumber}`);
+      let tmp = m[lineNumber];
+      m[lineNumber] = m[nonZeroLineNumber];
+      m[nonZeroLineNumber] = tmp;
+
+      tmp = mReverse[lineNumber];
+      mReverse[lineNumber] = mReverse[nonZeroLineNumber];
+      mReverse[nonZeroLineNumber] = tmp;
+      determinantMultiplication = determinantMultiplication * -1;
+      dumpState();
+    }
+
+    if (Math.abs(m[lineNumber][targetColumn]) < EPSILON) {
+      addMsg(`Внутренняя ошибка, элемент ${lineNumber}${targetColumn} равен нулю`);
+      return msg;
+    }
+    if (Math.abs(m[lineNumber][targetColumn] - 1) > EPSILON) {
+      addMsg(`Нормируем строку, делим на ${m[lineNumber][targetColumn]}`);
+      const targetMultiplier = 1 / m[lineNumber][targetColumn];
+      determinantMultiplication = determinantMultiplication * targetMultiplier;
+      for (let i = 0; i < colsCount; i++) {
+        m[lineNumber][i] = m[lineNumber][i] * targetMultiplier;
+      }
+      for (let i = 0; i < colsCount - 1; i++) {
+        mReverse[lineNumber][i] = mReverse[lineNumber][i] * targetMultiplier;
+      }
+
+      dumpState();
+    }
+
+    for (let targetLineNumber = lineNumber + 1; targetLineNumber < rowsCount; targetLineNumber++) {
+      if (Math.abs(m[targetLineNumber][targetColumn]) > EPSILON) {
+        addMsg(`Домножаем строку ${lineNumber} и прибавляем к строке ${targetLineNumber}`);
+        const multiplier = -1 / m[targetLineNumber][targetColumn];
+        m[targetLineNumber] = m[targetLineNumber];
+      }
+    }
+  }
   return msg;
 }
 export const Gauss = () => {
