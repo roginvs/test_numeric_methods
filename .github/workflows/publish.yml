@@ -16,6 +16,8 @@ jobs:
       run: echo Hello, world!
     - name: Run a multi-line script
       run: |
+        echo List of env
+        env
         echo Test keys $DEPLOY_KEY
         echo Add other actions to build,
         echo test, and deploy your project.
