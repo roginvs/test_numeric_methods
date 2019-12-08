@@ -11,18 +11,21 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "10.x"
-      - name: Run a one-line script
-        run: echo Hello, world!
-      - name: Run a multi-line script
-        env:
-          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+      - name: Install npm packages
+        run: npm install
+      - name: Check code
         run: |
-          npm install
           npm run tslint-check
           npm run prettier-check
           npm run lint
-          npm run test
-          npm run build
+      - name: Test code
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Deploy to github pages
+        env:
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+        run: |
           ls public
           mkdir -p ${HOME}/.ssh
           ssh-keyscan -t rsa github.com > "${HOME}/.ssh/known_hosts"
