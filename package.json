@@ -1,0 +1,49 @@
+{
+  "name": "test_js_calculate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jest.config.js",
+  "scripts": {
+    "test": "jest --verbose",
+    "lint": "tslint -c ./tslint.json --project ./tsconfig.json --format stylish",
+    "build": "webpack --mode production --devtool nosources-source-map --progress",
+    "start": "webpack-dev-server --mode development --progress --devtool source-map",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "prettier-check": "prettier --list-different \"src/**/*.ts*(x)\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/react": "^16.9.15",
+    "@types/react-dom": "^16.9.4",
+    "emotion": "^10.0.23",
+    "jest": "^24.9.0",
+    "polished": "^3.4.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-emotion": "^10.0.0",
+    "react-hot-loader": "^4.12.18",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^4.3.3",
+    "copy-webpack-plugin": "^5.0.5",
+    "fork-ts-checker-webpack-plugin": "^3.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "ts-loader": "^6.2.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-etc": "^1.10.0",
+    "tslint-no-circular-imports": "^0.7.0",
+    "tslint-react-hooks": "^2.2.1",
+    "tslint-sonarts": "^1.9.0",
+    "typescript": "^3.7.3",
+    "typestrict": "^1.0.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}
