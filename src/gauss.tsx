@@ -2,12 +2,17 @@ import React, { useState } from "react";
 
 import { useLocalStore, observer } from "mobx-react-lite";
 
+const EPSILON = 0.0000001;
+
 const DEFAULT_MATRIX = `-1.99 -1.47 -1.05 3.24 4.91
 -0.79 -1.16 -0.80 -1.15 7.87
 -2.91 -2.72 3.85 1.90 5.78
 3.25 0.98 0.50 -3.82 1.00`;
 
 function format(v: number) {
+  if (Math.abs(v) < EPSILON) {
+    return "0         ";
+  }
   return (v.toPrecision(3) + "           ").slice(0, 10);
 }
 function calculate(matrixRaw: string) {
@@ -74,7 +79,6 @@ function calculate(matrixRaw: string) {
 
   let determinantMultiplication = 1;
 
-  const EPSILON = 0.00001;
   addMsg("");
 
   function dumpState() {
@@ -89,7 +93,7 @@ function calculate(matrixRaw: string) {
   addMsg(`Исходные данные:`);
   dumpState();
 
-  for (let lineNumber = 0; lineNumber < rowsCount - 1; lineNumber++) {
+  for (let lineNumber = 0; lineNumber < rowsCount; lineNumber++) {
     addMsg(`Прямой ход на строке ${lineNumber}`);
     const targetColumn = lineNumber;
     let nonZeroLineNumber = -1;
@@ -140,9 +144,21 @@ function calculate(matrixRaw: string) {
 
     for (let targetLineNumber = lineNumber + 1; targetLineNumber < rowsCount; targetLineNumber++) {
       if (Math.abs(m[targetLineNumber][targetColumn]) > EPSILON) {
-        addMsg(`Домножаем строку ${lineNumber} и прибавляем к строке ${targetLineNumber}`);
-        const multiplier = -1 / m[targetLineNumber][targetColumn];
-        m[targetLineNumber] = m[targetLineNumber];
+        const multiplier = -m[targetLineNumber][targetColumn];
+        addMsg(
+          `Домножаем строку ${lineNumber} на ${multiplier.toPrecision(
+            5,
+          )} и прибавляем к строке ${targetLineNumber}`,
+        );
+
+        for (let i = 0; i < colsCount; i++) {
+          m[targetLineNumber][i] = m[targetLineNumber][i] + multiplier * m[lineNumber][i];
+        }
+        for (let i = 0; i < colsCount - 1; i++) {
+          mReverse[targetLineNumber][i] =
+            mReverse[targetLineNumber][i] + multiplier * mReverse[lineNumber][i];
+        }
+        dumpState();
       }
     }
   }
