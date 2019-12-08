@@ -12,14 +12,36 @@ import {
   DropdownMenu,
   DropdownItem,
   NavbarText,
+  FormGroup,
+  Label,
+  Input,
 } from "reactstrap";
 
 import { useLocalStore, observer } from "mobx-react-lite";
+
+interface HordParams {
+  a: number;
+  b: number;
+  epsilon: number;
+  useAasStart: boolean;
+}
+
+function calculate(p: HordParams) {
+  const f = (x: number) => Math.exp(x) * Math.sin(x) + x;
+  const fDerivative = (x: number) => Math.exp(x) * Math.sin(x) + Math.exp(x) * Math.cos(x) + 1;
+  let { a, b, epsilon } = p;
+  if (a > b) {
+    throw new Error("a > b");
+  }
+  const m = Math.min(fDerivative(a), fDerivative(b));
+}
+
 export const Hord = observer(() => {
-  const store = useLocalStore(() => ({
+  const store = useLocalStore<HordParams>(() => ({
     a: 0,
     b: 2 * Math.PI,
-    epsilon: 0.01,
+    epsilon: 0.000001,
+    useAasStart: true,
   }));
   return (
     <>
@@ -59,6 +81,28 @@ export const Hord = observer(() => {
             onChange={e => (store.epsilon = parseInt(e.target.value))}
           />
         </div>
+        <FormGroup>
+          <FormGroup check>
+            <Label check>
+              <Input
+                type="radio"
+                checked={store.useAasStart}
+                onChange={() => (store.useAasStart = true)}
+              />
+              Начать с a
+            </Label>
+          </FormGroup>{" "}
+          <FormGroup check>
+            <Label check>
+              <Input
+                type="radio"
+                checked={!store.useAasStart}
+                onChange={() => (store.useAasStart = false)}
+              />
+              Начать с b
+            </Label>
+          </FormGroup>
+        </FormGroup>
         <button
           className="btn btn-primary btn-block"
           onClick={e => {
