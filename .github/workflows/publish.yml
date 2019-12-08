@@ -20,10 +20,10 @@ jobs:
           mkdir public
           echo 'Hooray!' > public/index.html
           ls public
-          mkdir /root/.ssh
-          ssh-keyscan -t rsa github.com > "/root/.ssh/known_hosts"
-          echo "${SSH_DEPLOY_KEY}" > "/root/.ssh/id_rsa"
-          chmod 400 "/root/.ssh/id_rsa"
+          mkdir -p ${HOME}/.ssh
+          ssh-keyscan -t rsa github.com > "${HOME}/.ssh/known_hosts"
+          echo "${SSH_DEPLOY_KEY}" > "${HOME}/.ssh/id_rsa"
+          chmod 400 "${HOME}/.ssh/id_rsa"
           cd public
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
