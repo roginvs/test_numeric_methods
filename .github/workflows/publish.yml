@@ -15,7 +15,7 @@ jobs:
     - name: Run a one-line script
       run: echo Hello, world!
     - name: Run a multi-line script
-      with: # Set the secret as an input
+      env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
       run: |
         echo List of env
