@@ -37,7 +37,7 @@ export const Root = () => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Demo</NavbarBrand>
+        <NavbarBrand href="/">Сборка от {new Date(__BUILT_AT_DATE__).toLocaleString()}</NavbarBrand>
 
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
