@@ -131,7 +131,7 @@ function calculate(matrixRaw: string) {
     if (Math.abs(m[lineNumber][targetColumn] - 1) > EPSILON) {
       addMsg(`Нормируем строку, делим на ${m[lineNumber][targetColumn]}`);
       const targetMultiplier = 1 / m[lineNumber][targetColumn];
-      determinantMultiplication = determinantMultiplication * targetMultiplier;
+      determinantMultiplication = determinantMultiplication / targetMultiplier;
       for (let i = 0; i < colsCount; i++) {
         m[lineNumber][i] = m[lineNumber][i] * targetMultiplier;
       }
