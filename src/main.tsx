@@ -26,9 +26,10 @@ const routesToText = (r: Routing) => {
 };
 
 export const Root = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  //const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
+  // const toggle = () => setIsOpen(!isOpen);
+  const isOpen = true;
 
   const forceUpdate = useState<{}>()[1];
 

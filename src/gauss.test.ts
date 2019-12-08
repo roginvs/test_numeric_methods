@@ -13,7 +13,7 @@ const data = [
 describe(`Testing gauss`, () => {
   for (const { matrix, expectedDeterminant, rows } of data) {
     test(`Matrix`, () => {
-      const { msg, m, mReverse, determinant } = calculate(matrix);
+      const { m, determinant } = calculate(matrix);
       if (!m || !determinant) {
         throw new Error("No matrix");
       }
