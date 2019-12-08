@@ -6,7 +6,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 const { execSync } = require("child_process");
 
-const PUBLIC_PATH = "/";
+const PUBLIC_PATH = "";
 
 const devServer = {
   contentBase: "./public",
