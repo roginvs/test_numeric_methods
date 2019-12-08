@@ -16,7 +16,7 @@ import {
 import { Hord } from "./hord";
 
 export const Root = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
   // const toggle = () => setIsOpen(!isOpen);
 
