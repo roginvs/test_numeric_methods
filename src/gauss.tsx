@@ -162,6 +162,10 @@ function calculate(matrixRaw: string) {
       }
     }
   }
+
+  for (let lineNumber = rowsCount - 1; lineNumber > 0; lineNumber--) {
+    addMsg(`Обратный ход на строке ${lineNumber}`);
+  }
   return msg;
 }
 export const Gauss = () => {
