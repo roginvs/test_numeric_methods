@@ -10,7 +10,7 @@ const PUBLIC_PATH = "/";
 
 const devServer = {
   contentBase: "./public",
-  port: 6000,
+  port: 3000,
   hot: true,
   // hotOnly: true,
   historyApiFallback: { index: PUBLIC_PATH },
