@@ -164,8 +164,33 @@ function calculate(matrixRaw: string) {
   }
 
   for (let lineNumber = rowsCount - 1; lineNumber > 0; lineNumber--) {
+    const targetColumn = lineNumber;
     addMsg(`Обратный ход на строке ${lineNumber}`);
+
+    if (Math.abs(m[lineNumber][targetColumn] - 1) > EPSILON) {
+      addMsg(`Внутренняя ошибка, не 1 на ${lineNumber}x${targetColumn}`);
+      return msg;
+    }
+    for (let targetLineNumber = 0; targetLineNumber < lineNumber; targetLineNumber++) {
+      if (Math.abs(m[targetLineNumber][targetColumn]) > EPSILON) {
+        const multiplier = -m[targetLineNumber][targetColumn];
+        addMsg(
+          `Домножаем строку ${lineNumber} на ${multiplier.toPrecision(
+            5,
+          )} и прибавляем к строке ${targetLineNumber}`,
+        );
+        for (let i = 0; i < colsCount; i++) {
+          m[targetLineNumber][i] = m[targetLineNumber][i] + multiplier * m[lineNumber][i];
+        }
+        for (let i = 0; i < colsCount - 1; i++) {
+          mReverse[targetLineNumber][i] =
+            mReverse[targetLineNumber][i] + multiplier * mReverse[lineNumber][i];
+        }
+        dumpState();
+      }
+    }
   }
+  addMsg(`Определитель = ${determinantMultiplication}`);
   return msg;
 }
 export const Gauss = () => {
