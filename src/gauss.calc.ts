@@ -16,7 +16,9 @@ export function calculate(matrixRaw: string) {
   const rowsRaw = matrixRaw
     .split("\n")
     .map(x => x.trim())
-    .filter(x => x);
+    .filter(x => x)
+    .filter(x => x.indexOf("#") !== 0);
+
   const rowsCount = rowsRaw.length;
   const m: number[][] = [];
   let colsCount: number | undefined;

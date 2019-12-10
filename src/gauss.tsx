@@ -18,9 +18,15 @@ const DEFAULT_MATRIX_3 = `2.52 1.40 -1.29 -1.88
 -3.17 -2.55 3.64 -1.75
 1.08 3.32 1.74 -2.26`;
 
-const DEFAULT_MATRIX_4 = `0 1 2 3
+const DEFAULT_MATRIX_4 = `# Меняются строки местами
+0 1 2 3
 1 2 0 3
 1 4 0 1`;
+
+const DEFAULT_MATRIX_5 = `# Определитель = 0
+-3 1 2 1
+3 -3 0 1
+-3 2 1 1`;
 export const Gauss = () => {
   const [matrix, setMatrix] = useState(DEFAULT_MATRIX_1);
   const [msg, setMsg] = useState<string | undefined>();
@@ -43,6 +49,10 @@ export const Gauss = () => {
 
             <button className="btn btn-info mr-1" onClick={() => setMatrix(DEFAULT_MATRIX_4)}>
               Демо 4
+            </button>
+
+            <button className="btn btn-info mr-1" onClick={() => setMatrix(DEFAULT_MATRIX_5)}>
+              Демо 5
             </button>
           </div>
           <form>
