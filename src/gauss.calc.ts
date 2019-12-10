@@ -46,14 +46,14 @@ export function calculate(matrixRaw: string) {
     colsCount++;
   }
   if (colsCount !== rowsCount + 1) {
-    addMsg(`Неверное кол-во строк и стобцов! Строк=${rowsCount} столцов=${colsCount}`);
+    addMsg(`Ошибка: Неверное кол-во строк и стобцов! Строк=${rowsCount} столцов=${colsCount}`);
     return { msg };
   }
 
   for (let i = 0; i < m.length; i++) {
     for (let ii = 0; ii < m[i].length; ii++) {
       if (isNaN(m[i][ii])) {
-        addMsg(`Не число в строке ${i}, столбец ${ii}`);
+        addMsg(`Ошибка: Не число в строке ${i}, столбец ${ii}`);
         return { msg };
       }
     }
@@ -99,7 +99,7 @@ export function calculate(matrixRaw: string) {
       }
     }
     if (nonZeroLineNumber === -1) {
-      addMsg(`Вырожденная матрица: Нет ненулевого элемента в столбце ${targetColumn}`);
+      addMsg(`Нулевой определитель: Нет ненулевого элемента в столбце ${targetColumn}`);
       return { msg, m };
     }
     if (nonZeroLineNumber !== lineNumber) {
