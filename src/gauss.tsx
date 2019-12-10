@@ -3,17 +3,20 @@ import React, { useState } from "react";
 import { useLocalStore, observer } from "mobx-react-lite";
 import { calculate } from "./gauss.calc";
 
-const DEFAULT_MATRIX_1 = `-1.99 -1.47 -1.05 3.24 4.91
+const DEFAULT_MATRIX_1 = `# Первый пример
+-1.99 -1.47 -1.05 3.24 4.91
 -0.79 -1.16 -0.80 -1.15 7.87
 -2.91 -2.72 3.85 1.90 5.78
 3.25 0.98 0.50 -3.82 1.00`;
 
-const DEFAULT_MATRIX_2 = `2.40 -3.42 2.65 0.27
+const DEFAULT_MATRIX_2 = `# Второй пример
+2.40 -3.42 2.65 0.27
 2.21 -2.91 -2.02 -3.60
 -0.02 -3.63 -1 0.94
 -1.02 2.19 0.97 -1.7`;
 
-const DEFAULT_MATRIX_3 = `2.52 1.40 -1.29 -1.88
+const DEFAULT_MATRIX_3 = `# Третий пример
+2.52 1.40 -1.29 -1.88
 2.14 -2.20 -2.78 -2.99
 -3.17 -2.55 3.64 -1.75
 1.08 3.32 1.74 -2.26`;
