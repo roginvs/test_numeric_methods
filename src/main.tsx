@@ -15,13 +15,15 @@ import {
 } from "reactstrap";
 import { Hord } from "./hord";
 import { Gauss } from "./gauss";
+import { Simpson } from "./simpson";
 
-const ROUTINGS = ["span", "gauss"] as const;
+const ROUTINGS = ["span", "gauss", "simpson"] as const;
 type Routing = typeof ROUTINGS[number];
 const routesToText = (r: Routing) => {
   return {
     span: "Хорды",
     gauss: "Гаусс",
+    simpson: "Симпсон",
   }[r];
 };
 
@@ -60,7 +62,15 @@ export const Root = () => {
         </Collapse>
       </Navbar>
       <div className="container-sm">
-        {hash === "span" ? <Hord /> : hash === "gauss" ? <Gauss /> : <div>Демо</div>}
+        {hash === "span" ? (
+          <Hord />
+        ) : hash === "gauss" ? (
+          <Gauss />
+        ) : hash === "simpson" ? (
+          <Simpson />
+        ) : (
+          <div>Демо</div>
+        )}
       </div>
     </div>
   );
