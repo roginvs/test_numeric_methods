@@ -9,10 +9,32 @@ interface Func {
 const FUNCS: Func[] = [
   {
     name: "x*sqrt(x+1)",
-    f: (x: number) => x * Math.sqrt(x + 1),
+    f: x => x * Math.sqrt(x + 1),
     max4d: 1.5,
     a: 0,
     b: 1,
+  },
+
+  {
+    name: "e^(ax) * sin (bx)",
+    f: x => Math.exp(0.73 * x) * Math.sin(1.46 * x),
+    // D[Exp[a * x] * Sin[b * x], {x, 4}]
+    // Plot[Evaluate[D[Exp[a * x] * Sin[b * x], {x, 4}]], {x, 1, 2}]
+    // Integrate[Exp[0.73 * x] * Sin[1.46 * x] , {x, 1, 2}]
+    max4d: 25,
+    a: 1,
+    b: 2,
+  },
+
+  {
+    name: "1 / sqrt(x*2 + a)",
+    f: x => 1 / Math.sqrt(x * x + 0.72),
+    // D[ 1 / Sqrt[x*x + 0.72], {x, 4}]
+    // Plot[Evaluate[D[ 1 / Sqrt[x*x + 0.72], {x, 4}]], {x, 1, 2}]
+    // Integrate[ 1 / Sqrt[x*x + 0.72] , {x, 1, 2}]
+    max4d: 1,
+    a: 1,
+    b: 2,
   },
 ];
 
