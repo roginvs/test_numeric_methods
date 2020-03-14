@@ -16,14 +16,14 @@ function randomValueByReverseFunc(values: Value[], r: number) {
   return values.slice(-1)[0].value;
 }
 
-function getEstimateMean(values: number[], N: number) {
+export function getEstimateMean(values: number[], N: number) {
   if (values.length !== N) {
     throw new Error("Wrong N");
   }
   return values.reduce((cur, acc) => cur + acc, 0) / N;
 }
 
-function getEstimateD(values: number[], estimatedMean: number, N: number) {
+export function getEstimateD(values: number[], estimatedMean: number, N: number) {
   if (values.length !== N) {
     throw new Error("Wrong N");
   }
