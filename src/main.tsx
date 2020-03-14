@@ -16,14 +16,16 @@ import {
 import { Hord } from "./hord";
 import { Gauss } from "./gauss";
 import { Simpson } from "./simpson";
+import { DiscreteRandom } from "./discrete_random";
 
-const ROUTINGS = ["span", "gauss", "simpson"] as const;
+const ROUTINGS = ["span", "gauss", "simpson", "descrete_random"] as const;
 type Routing = typeof ROUTINGS[number];
 const routesToText = (r: Routing) => {
   return {
     span: "Хорды",
     gauss: "Гаусс",
     simpson: "Симпсон",
+    descrete_random: "Дискретная случайная",
   }[r];
 };
 
@@ -68,6 +70,8 @@ export const Root = () => {
           <Gauss />
         ) : hash === "simpson" ? (
           <Simpson />
+        ) : hash === "descrete_random" ? (
+          <DiscreteRandom />
         ) : (
           <div>Демо</div>
         )}
