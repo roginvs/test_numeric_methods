@@ -5,7 +5,7 @@ import { calculate } from "./continues_random.calc";
 export const ContinuesRandom = () => {
   const [msg, setMsg] = useState<string | undefined>();
 
-  useEffect(() => setMsg(calculate()));
+  useEffect(() => setMsg(calculate()), []);
   return (
     <>
       <h2>Непрерывная случайная величина</h2>
