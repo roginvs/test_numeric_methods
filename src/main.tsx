@@ -47,7 +47,7 @@ export const Root = () => {
 
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            {ROUTINGS.map(r => (
+            {ROUTINGS.filter(x => x !== "gauss" && x !== "simpson" && x !== "span").map(r => (
               <NavItem key={r}>
                 <NavLink
                   active={hash === r}
