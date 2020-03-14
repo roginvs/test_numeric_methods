@@ -74,7 +74,7 @@ export function calculate(raw: string) {
   const estimateD = getEstimateD(NValues, estimateMean, N);
   addMsg(`Оценка дисперсии из N значений = ${estimateD}`);
 
-  // Just to the same for 1000 times
+  // Повторяем всё тоже самое, только много раз и смотрим на среднее
   const DEMO_LOOP_COUNT = 1000;
   const means: number[] = [];
   const Ds: number[] = [];
