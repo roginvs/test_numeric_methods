@@ -15,6 +15,24 @@ function randomValueByReverseFunc(values: Value[], r: number) {
   console.warn(`Sum of probabilities is greater than 1`);
   return values.slice(-1)[0].value;
 }
+
+function getEstimateMean(values: number[], N: number) {
+  if (values.length !== N) {
+    throw new Error("Wrong N");
+  }
+  return values.reduce((cur, acc) => cur + acc, 0) / N;
+}
+
+function getEstimateD(values: number[], estimatedMean: number, N: number) {
+  if (values.length !== N) {
+    throw new Error("Wrong N");
+  }
+  return (
+    values.map(x => x * x).reduce((cur, acc) => cur + acc, 0) / (N - 1) -
+    (N * (estimatedMean * estimatedMean)) / (N - 1)
+  );
+}
+
 export function calculate(raw: string) {
   let msg = "";
   const addMsg = (s: string) => {
@@ -47,14 +65,30 @@ export function calculate(raw: string) {
 
   const NValues = new Array(N).fill(0).map(() => randomValueByReverseFunc(values, Math.random()));
   const qValues = NValues.slice(0, q);
-  qValues.forEach(v => addMsg(`Значение = ${v}`));
+  //qValues.forEach(v => addMsg(`Значение = ${v}`));
+  addMsg(`Первые q значений = ${qValues.join(", ")}`);
 
-  const estimateMean = NValues.reduce((cur, acc) => cur + acc, 0) / N;
+  const estimateMean = getEstimateMean(NValues, N);
   addMsg(`Оценка среднего из N значений = ${estimateMean}`);
 
-  const estimateD =
-    NValues.map(x => x * x).reduce((cur, acc) => cur + acc, 0) / (N - 1) -
-    (N * (estimateMean * estimateMean)) / (N - 1);
+  const estimateD = getEstimateD(NValues, estimateMean, N);
   addMsg(`Оценка дисперсии из N значений = ${estimateD}`);
+
+  // Just to the same for 1000 times
+  const DEMO_LOOP_COUNT = 1000;
+  const means: number[] = [];
+  const Ds: number[] = [];
+  for (let i = 0; i < DEMO_LOOP_COUNT; i++) {
+    const demoValues = new Array(N)
+      .fill(0)
+      .map(() => randomValueByReverseFunc(values, Math.random()));
+    const mean = getEstimateMean(demoValues, N);
+    const D = getEstimateD(demoValues, mean, N);
+    means.push(mean);
+    Ds.push(D);
+  }
+  addMsg(`После ${DEMO_LOOP_COUNT} итераций:`);
+  addMsg(`  Среднее по средним = ${getEstimateMean(means, DEMO_LOOP_COUNT)}`);
+  addMsg(`  Среднее по дисперсии = ${getEstimateMean(Ds, DEMO_LOOP_COUNT)}`);
   return msg;
 }
