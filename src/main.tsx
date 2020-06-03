@@ -20,6 +20,7 @@ import { DiscreteRandom } from "./discrete_random";
 import { ContinuesRandom } from "./continues_random";
 import { EqualDistribution } from "./03-equal-distribution";
 import { ExponentialDistribution } from "./04-exponental-distribution";
+import { NormalDistribution } from "./05-normal-distribution";
 
 const ROUTINGS = [
   "span",
@@ -29,6 +30,7 @@ const ROUTINGS = [
   "continues_random",
   "equal_distribution",
   "exponential_distribution",
+  "normal_distribution",
 ] as const;
 type Routing = typeof ROUTINGS[number];
 const routesToText = (r: Routing) => {
@@ -38,8 +40,9 @@ const routesToText = (r: Routing) => {
     simpson: "Симпсон",
     descrete_random: "Дискретная случайная",
     continues_random: "Непрерывная случайная",
-    equal_distribution: "Моделирование равномерного распределения",
-    exponential_distribution: "Моделирование показательного распределения",
+    equal_distribution: "Равномерноe распередение",
+    exponential_distribution: "Показательное распредение",
+    normal_distribution: "Нормальное распределение",
   }[r];
 };
 
@@ -92,6 +95,8 @@ export const Root = () => {
           <EqualDistribution />
         ) : hash === "exponential_distribution" ? (
           <ExponentialDistribution />
+        ) : hash === "normal_distribution" ? (
+          <NormalDistribution />
         ) : (
           <div>Демо</div>
         )}
