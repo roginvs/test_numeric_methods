@@ -84,5 +84,5 @@ function calculate() {
 }
 
 export const NormalDistribution = () => (
-  <BaseUi calculate={calculate} name="Моделирование выборки из нормального распределения" />
+  <BaseUi calculate={calculate} name="Моделирование нормального распределения" />
 );
