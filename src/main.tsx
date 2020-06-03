@@ -18,8 +18,16 @@ import { Gauss } from "./gauss";
 import { Simpson } from "./simpson";
 import { DiscreteRandom } from "./discrete_random";
 import { ContinuesRandom } from "./continues_random";
+import { EqualDistribution } from "./03-equal-distribution";
 
-const ROUTINGS = ["span", "gauss", "simpson", "descrete_random", "continues_random"] as const;
+const ROUTINGS = [
+  "span",
+  "gauss",
+  "simpson",
+  "descrete_random",
+  "continues_random",
+  "equal_distribution",
+] as const;
 type Routing = typeof ROUTINGS[number];
 const routesToText = (r: Routing) => {
   return {
@@ -28,6 +36,7 @@ const routesToText = (r: Routing) => {
     simpson: "Симпсон",
     descrete_random: "Дискретная случайная",
     continues_random: "Непрерывная случайная",
+    equal_distribution: "Моделирование равномерного распределения",
   }[r];
 };
 
@@ -76,6 +85,8 @@ export const Root = () => {
           <DiscreteRandom />
         ) : hash === "continues_random" ? (
           <ContinuesRandom />
+        ) : hash === "equal_distribution" ? (
+          <EqualDistribution />
         ) : (
           <div>Демо</div>
         )}
