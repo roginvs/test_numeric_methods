@@ -9,7 +9,7 @@ export const BaseUi: React.FC<{
   useEffect(() => setMsg(calculate()), []);
   return (
     <>
-      <h2>Непрерывная случайная величина</h2>
+      <h2>{name}</h2>
       {msg === undefined ? (
         <>
           <form>Загрузка</form>
