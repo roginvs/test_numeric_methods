@@ -6,6 +6,7 @@ export const nbsp = "\u00A0";
 function calculate() {
   let msg = "";
 
+  /*
   for (const [a, b] of [
     [0, 1],
     //[1, 2],
@@ -50,8 +51,12 @@ function calculate() {
 
   msg += `${nbsp}\n`;
   msg += `${nbsp}\n`;
-  msg += `== Моделирование нормальной случайной величины N(0,1) ==\n`;
-  for (const [a, b] of [[10, 20]]) {
+  */
+
+  for (const [a, b] of [
+    [3, 9],
+    [10, 20],
+  ]) {
     msg += `a=${a} b=${b}\n`;
     const M_each = (b - a) / 2 + a;
     const D_each = (b - a) ** 2 / 12;
@@ -78,11 +83,12 @@ function calculate() {
         msg += `  На выборке из n=${n} элементов M=${estimateMean} D=${estimateD}\n`;
       }
     }
+    msg += `${nbsp}\n`;
   }
 
   return msg;
 }
 
 export const NormalDistribution = () => (
-  <BaseUi calculate={calculate} name="Моделирование нормального распределения" />
+  <BaseUi calculate={calculate} name="Моделирование нормального распределения N(0,1)" />
 );
