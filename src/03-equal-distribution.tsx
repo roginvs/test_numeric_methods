@@ -6,29 +6,29 @@ export const nbsp = "\u00A0";
 function calculate() {
   let msg = "";
 
-  const n = 50;
   for (const [a, b] of [
     [1, 2],
     [5, 8],
     [10, 20],
   ]) {
     msg += `a=${a} b=${b}\n`;
-    const selection: number[] = [];
-    for (let i = 0; i < n; i++) {
-      const r = Math.random();
-      const val = a + r * (b - a);
-      selection.push(val);
-    }
-    const estimateMean = getEstimateMean(selection, n);
-    const estimateD = getEstimateD(selection, estimateMean, n);
-    msg += `На выборке из n=${n} элементов M=${estimateMean} D=${estimateD}\n`;
-
     const M = (b - a) / 2 + a;
     const D = (b - a) ** 2 / 12;
     msg += `Точные значения M=${M} D=${D}\n`;
-    msg += `Погрешность M=${estimateMean - M}\n`;
-    msg += `Погрешность D=${estimateD - D}\n`;
+    for (const n of [50, 5000]) {
+      const selection: number[] = [];
+      for (let i = 0; i < n; i++) {
+        const r = Math.random();
+        const val = a + r * (b - a);
+        selection.push(val);
+      }
+      const estimateMean = getEstimateMean(selection, n);
+      const estimateD = getEstimateD(selection, estimateMean, n);
+      msg += `На выборке из n=${n} элементов M=${estimateMean} D=${estimateD}\n`;
 
+      msg += `  Погрешность M=${estimateMean - M}\n`;
+      msg += `  Погрешность D=${estimateD - D}\n`;
+    }
     msg += `${nbsp}\n`;
   }
 
