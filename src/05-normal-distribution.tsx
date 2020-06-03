@@ -48,6 +48,38 @@ function calculate() {
     msg += `${nbsp}\n`;
   }
 
+  msg += `${nbsp}\n`;
+  msg += `${nbsp}\n`;
+  msg += `== Моделирование нормальной случайной величины N(0,1) ==\n`;
+  for (const [a, b] of [[10, 20]]) {
+    msg += `a=${a} b=${b}\n`;
+    const M_each = (b - a) / 2 + a;
+    const D_each = (b - a) ** 2 / 12;
+    msg += `Точные значения для промежуточной случайной величины M=${M_each} D=${D_each}\n`;
+
+    for (const sum_n of [12, 10000]) {
+      msg += `Моделируем нормальн распределенную случайною величину суммируя N=${sum_n} раз\n`;
+
+      for (const n of [50, 500, 5000]) {
+        const selection: number[] = [];
+        for (let i = 0; i < n; i++) {
+          let sum_value = 0;
+          for (let ii = 0; ii < sum_n; ii++) {
+            const rand = Math.random();
+            const val_intermidiate = a + rand * (b - a);
+            sum_value += val_intermidiate;
+          }
+          const val = (sum_value - sum_n * M_each) / (Math.sqrt(D_each) * Math.sqrt(sum_n));
+          selection.push(val);
+        }
+
+        const estimateMean = getEstimateMean(selection, n);
+        const estimateD = getEstimateD(selection, estimateMean, n);
+        msg += `  На выборке из n=${n} элементов M=${estimateMean} D=${estimateD}\n`;
+      }
+    }
+  }
+
   return msg;
 }
 
