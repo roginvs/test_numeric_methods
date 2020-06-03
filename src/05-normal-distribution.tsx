@@ -7,8 +7,9 @@ function calculate() {
   let msg = "";
 
   for (const [a, b] of [
-    [1, 2],
-    [5, 8],
+    [0, 1],
+    //[1, 2],
+    // [5, 8],
     [10, 20],
   ]) {
     msg += `a=${a} b=${b}\n`;
@@ -17,13 +18,13 @@ function calculate() {
     const D_each = (b - a) ** 2 / 12;
     msg += `Точные значения для промежуточной случайной величины M=${M_each} D=${D_each}\n`;
 
-    for (const sum_n of [12, 100]) {
+    for (const sum_n of [12, 10000]) {
       msg += `Суммируем N=${sum_n} раз\n`;
       const M = sum_n * M_each;
-      const D = sum_n * D_each;
+      const D = D_each * sum_n;
       msg += `  Точные значения M=${M} D=${D}\n`;
 
-      for (const n of [50, 5000]) {
+      for (const n of [50, 500, 5000]) {
         const selection: number[] = [];
         for (let i = 0; i < n; i++) {
           let sum_value = 0;
